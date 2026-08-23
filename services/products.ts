@@ -1,4 +1,4 @@
-import { Product, ProductResponse } from "@/types/product";
+import { CategoryOption, Product, ProductResponse } from "@/types/product";
 import axios from "axios";
 
 const api = axios.create({ baseURL: "https://dummyjson.com", timeout: 10000 });
@@ -33,5 +33,10 @@ export async function getProduct(id: string | number): Promise<Product> {
   if (cached && "id" in cached) return cached;
   const response = await api.get<Product>(`/products/${id}`);
   cache.set(key, response.data);
+  return response.data;
+}
+
+export async function getCategories(): Promise<CategoryOption[]> {
+  const response = await api.get<CategoryOption[]>("/products/category-list");
   return response.data;
 }
