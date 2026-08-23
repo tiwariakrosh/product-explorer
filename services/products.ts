@@ -26,3 +26,12 @@ export async function getProducts(params: {
   cache.set(key, response.data);
   return response.data;
 }
+
+export async function getProduct(id: string | number): Promise<Product> {
+  const key = `product:${id}`;
+  const cached = cache.get(key);
+  if (cached && "id" in cached) return cached;
+  const response = await api.get<Product>(`/products/${id}`);
+  cache.set(key, response.data);
+  return response.data;
+}
