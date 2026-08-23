@@ -8,6 +8,7 @@ import {
   useSelector,
   type TypedUseSelectorHook,
 } from "react-redux";
+import { create } from "zustand";
 
 const themeSlice = createSlice({
   name: "theme",
@@ -28,3 +29,18 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+type ExplorerState = {
+  favorites: number[];
+  toggleFavorite: (id: number) => void;
+};
+
+export const useExplorerStore = create<ExplorerState>((set) => ({
+  favorites: [],
+  toggleFavorite: (id) =>
+    set((state) => ({
+      favorites: state.favorites.includes(id)
+        ? state.favorites.filter((favorite) => favorite !== id)
+        : [...state.favorites, id],
+    })),
+}));
