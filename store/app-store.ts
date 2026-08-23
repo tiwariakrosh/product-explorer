@@ -22,7 +22,6 @@ const themeSlice = createSlice({
     },
   },
 });
-
 export const { toggle, set: setTheme } = themeSlice.actions;
 export const store = configureStore({ reducer: { theme: themeSlice.reducer } });
 export type RootState = ReturnType<typeof store.getState>;
@@ -31,12 +30,24 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 type ExplorerState = {
+  search: string;
+  category: string;
+  favoritesOnly: boolean;
   favorites: number[];
+  setSearch: (search: string) => void;
+  setCategory: (category: string) => void;
+  setFavoritesOnly: (value: boolean) => void;
   toggleFavorite: (id: number) => void;
 };
 
 export const useExplorerStore = create<ExplorerState>((set) => ({
+  search: "",
+  category: "all",
+  favoritesOnly: false,
   favorites: [],
+  setSearch: (search) => set({ search }),
+  setCategory: (category) => set({ category }),
+  setFavoritesOnly: (favoritesOnly) => set({ favoritesOnly }),
   toggleFavorite: (id) =>
     set((state) => ({
       favorites: state.favorites.includes(id)

@@ -16,6 +16,7 @@ export default async function ProductDetail({
   } catch {
     notFound();
   }
+
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-5 py-8 lg:px-8">

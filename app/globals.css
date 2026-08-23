@@ -17,7 +17,19 @@
   --color-ring: var(--ring);
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
+
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% {
+      background-position: -450px 0;
+    }
+    100% {
+      background-position: 450px 0;
+    }
+  }
 }
+
 :root {
   color-scheme: light;
   --background: #f8f8f8;
