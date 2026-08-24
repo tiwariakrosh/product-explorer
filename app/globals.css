@@ -78,6 +78,10 @@ select {
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  cursor: pointer;
+}
+
 ::selection {
   background: var(--primary);
   color: var(--primary-foreground);

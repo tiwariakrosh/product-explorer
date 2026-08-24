@@ -7,11 +7,15 @@ import {
   useExplorerStore,
 } from "@/store/app-store";
 import { Heart, Moon, Sun } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const { favoritesOnly, setFavoritesOnly } = useExplorerStore();
   const mode = useAppSelector((state) => state.theme.mode);
   const dispatch = useAppDispatch();
+  const pathname = usePathname();
+
+  const isProductDetailPage = /^\/products\/[^/]+$/.test(pathname);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
@@ -20,17 +24,19 @@ export function Header() {
           Product Explorer
         </h1>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setFavoritesOnly(!favoritesOnly)}
-            aria-pressed={favoritesOnly}
-            className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary"
-          >
-            <Heart
-              className={
-                favoritesOnly ? "size-5 fill-primary text-primary" : "size-5"
-              }
-            />
-          </button>
+          {!isProductDetailPage && (
+            <button
+              onClick={() => setFavoritesOnly(!favoritesOnly)}
+              aria-pressed={favoritesOnly}
+              className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary"
+            >
+              <Heart
+                className={
+                  favoritesOnly ? "size-5 fill-primary text-primary" : "size-5"
+                }
+              />
+            </button>
+          )}
 
           <button
             onClick={() => dispatch(toggle())}

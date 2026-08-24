@@ -8,6 +8,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Product Explorer — Product Details",
+  description:
+    "View detailed information about a product, including its price, rating, stock, and description.",
 };
 
 export default async function ProductDetail({

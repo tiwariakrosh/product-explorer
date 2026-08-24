@@ -6,6 +6,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Product Explorer — Browse Products",
+  description:
+    "Discover a wide range of products with our advanced search and filtering options. Save your favorites.",
 };
 
 export default function HomePage() {

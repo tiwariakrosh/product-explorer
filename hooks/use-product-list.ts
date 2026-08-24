@@ -40,9 +40,11 @@ export function useProductList(query: string, category: string) {
         if (isRequestCancelled(err)) return;
         setError("We could not load the catalog. Please try again.");
       } finally {
-        isFetchingRef.current = false;
-        setInitialLoading(false);
-        setLoadingMore(false);
+        if (!signal.aborted) {
+          isFetchingRef.current = false;
+          setInitialLoading(false);
+          setLoadingMore(false);
+        }
       }
     },
     [query, category, renewSignal],
