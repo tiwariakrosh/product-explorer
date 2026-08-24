@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowLeft, Star } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/services/products";
+import { FavoriteButton } from "@/components/favorite-button";
 
 export default async function ProductDetail({
   params,
@@ -38,9 +39,12 @@ export default async function ProductDetail({
             />
           </div>
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-              {product.category}
-            </p>
+            <div className="flex gap-6 items-center">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
+                {product.category}
+              </p>
+              <FavoriteButton productId={product.id} key={product.id} />
+            </div>
             <h1 className="mt-4 text-4xl font-bold tracking-[-0.04em] sm:text-6xl">
               {product.title}
             </h1>

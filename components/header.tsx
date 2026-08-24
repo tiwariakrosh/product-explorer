@@ -1,9 +1,16 @@
 "use client";
 
-import { toggle, useAppDispatch, useAppSelector } from "@/store/app-store";
-import { Moon, Sun } from "lucide-react";
+import {
+  toggle,
+  useAppDispatch,
+  useAppSelector,
+  useExplorerStore,
+} from "@/store/app-store";
+import { Heart, Moon, Sun } from "lucide-react";
+import Link from "next/link";
 
 export function Header() {
+  const { favoritesOnly, setFavoritesOnly } = useExplorerStore();
   const mode = useAppSelector((state) => state.theme.mode);
   const dispatch = useAppDispatch();
 
@@ -14,6 +21,20 @@ export function Header() {
           Product Explorer
         </h1>
         <div className="flex items-center gap-2">
+          <Link href="/favorites" className="flex items-center gap-2">
+            <button
+              onClick={() => setFavoritesOnly(!favoritesOnly)}
+              aria-pressed={favoritesOnly}
+              className="flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary"
+            >
+              <Heart
+                className={
+                  favoritesOnly ? "size-4 fill-primary text-primary" : "size-4"
+                }
+              />
+            </button>
+          </Link>
+
           <button
             onClick={() => dispatch(toggle())}
             aria-label="Toggle theme"
