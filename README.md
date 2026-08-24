@@ -51,5 +51,6 @@ utils/                    format.ts
 
 ## Known Limitations
 
-- Favorites only work with already-loaded products. A favorite may not appear until its product is loaded.
-- In-memory cache resets on full page reload (not persisted to storage).
+- Favorites products section are only available from the product list page.
+- Favorites are cleared when the page is reloaded.
+- In-memory cache resets on full page reload.
