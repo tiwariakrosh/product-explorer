@@ -31,7 +31,7 @@ export default async function ProductDetail({
   return (
     <PageTransition>
       <main className="min-h-screen bg-background">
-        <div className="mx-auto max-w-6xl px-5 py-8 lg:px-8">
+        <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-foreground"
