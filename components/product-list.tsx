@@ -7,10 +7,11 @@ import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { ProductGrid } from "@/components/product-grid";
 import { ProductGridSkeleton } from "./product-skeleton";
 import { EmptyState, ErrorState } from "./state-message";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 
 export default function ProductList() {
   const { search, category, favoritesOnly, favorites } = useExplorerStore();
-  const debounced = search.trim().toLowerCase();
+  const debounced = useDebouncedValue(search.trim().toLowerCase(), 300);
 
   const {
     products,
@@ -22,7 +23,13 @@ export default function ProductList() {
     retry,
   } = useProductList(debounced, category);
 
-  const sentinelRef = useInfiniteScroll(hasMore, loadingMore, fetchNextPage);
+  const canLoadMore = hasMore && !favoritesOnly;
+
+  const sentinelRef = useInfiniteScroll(
+    canLoadMore,
+    loadingMore,
+    fetchNextPage,
+  );
 
   const visibleProducts = useMemo(
     () =>
@@ -32,7 +39,11 @@ export default function ProductList() {
     [products, favoritesOnly, favorites],
   );
 
-  if (initialLoading) return <ProductGridSkeleton />;
+  const isPendingDebounce = search.trim().toLowerCase() !== debounced;
+
+  const isLoading = initialLoading || isPendingDebounce;
+
+  if (isLoading && products.length === 0) return <ProductGridSkeleton />;
   if (error && products.length === 0)
     return <ErrorState message={error} onRetry={retry} />;
   if (visibleProducts.length === 0)
@@ -42,7 +53,7 @@ export default function ProductList() {
     <div className="flex p-4 flex-col h-full gap-4">
       <ProductGrid products={visibleProducts} />
 
-      {hasMore && (
+      {canLoadMore && (
         <div ref={sentinelRef} className="flex justify-center py-4">
           {loadingMore && (
             <span className="text-sm text-muted-foreground">Loading more…</span>

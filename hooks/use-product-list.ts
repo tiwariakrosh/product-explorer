@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getProducts } from "@/services/products";
+import { getProducts, isRequestCancelled } from "@/services/products";
 import { Product } from "@/types/product";
 import { useAbortController } from "./use-abort-controller";
-import axios from "axios";
 
 const LIMIT = 10;
 
@@ -38,12 +37,14 @@ export function useProductList(query: string, category: string) {
         setTotal(data.total);
         skipRef.current = nextSkip + data.products.length;
       } catch (err) {
-        if (axios.isCancel(err)) return;
+        if (isRequestCancelled(err)) return;
         setError("We could not load the catalog. Please try again.");
       } finally {
-        isFetchingRef.current = false;
-        setInitialLoading(false);
-        setLoadingMore(false);
+        if (!signal.aborted) {
+          isFetchingRef.current = false;
+          setInitialLoading(false);
+          setLoadingMore(false);
+        }
       }
     },
     [query, category, renewSignal],

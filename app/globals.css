@@ -15,6 +15,11 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-destructive: var(--destructive);
   --color-ring: var(--ring);
+
+  --color-brand-300: #ffa266;
+  --color-brand-400: #ff8933;
+  --color-brand-500: #ff7500;
+
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
 
@@ -34,14 +39,14 @@
   color-scheme: light;
   --background: #f8f8f8;
   --foreground: #171717;
-  --card: #ffffff;
+  --card: #f0efef;
   --muted: #f0f0f0;
   --muted-foreground: #6b6b6b;
   --border: #d4d4d4;
-  --primary: #4a90e2;
+  --primary: #ff7500;
   --primary-foreground: #ffffff;
   --destructive: #ff4d4d;
-  --ring: #4a90e2;
+  --ring: #ff7500;
 }
 
 .dark {
@@ -52,10 +57,10 @@
   --muted: #2c2c2c;
   --muted-foreground: #a0a0a0;
   --border: #3a3a3a;
-  --primary: #4a90e2;
+  --primary: #ff7500;
   --primary-foreground: #ffffff;
   --destructive: #ff4d4d;
-  --ring: #4a90e2;
+  --ring: #ff7500;
 }
 
 * {
@@ -71,6 +76,10 @@ a,
 input,
 select {
   -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
 }
 
 ::selection {
