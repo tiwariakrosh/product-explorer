@@ -50,7 +50,7 @@ export default function ProductList() {
     return <EmptyState searchTerm={debounced} />;
 
   return (
-    <div className="flex p-4 flex-col h-full gap-4">
+    <div className="flex pt-6 flex-col h-full gap-4">
       <ProductGrid products={visibleProducts} />
 
       {canLoadMore && (
