@@ -2,6 +2,7 @@
 
 import { getCategories } from "@/services/products";
 import { useExplorerStore } from "@/store/app-store";
+import { SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function FilterBar() {
@@ -15,11 +16,12 @@ export function FilterBar() {
   }, []);
 
   return (
-    <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+    <div className="flex w-full items-center gap-2 sm:w-auto sm:flex-row">
+      <SlidersHorizontal className="size-7 text-foreground/50" />
       <select
         value={category}
         onChange={(event) => setCategory(event.target.value)}
-        className="h-11 rounded-lg border border-border bg-card px-3 text-sm capitalize outline-none focus:border-primary"
+        className="h-11 rounded-lg border border-border bg-transparent px-3 pl-2 text-sm capitalize outline-none focus:border-primary"
       >
         <option value="all">All categories</option>
         {categories.map((item) => (

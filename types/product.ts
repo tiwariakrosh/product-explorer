@@ -18,16 +18,3 @@ export interface ProductResponse {
   skip: number;
   limit: number;
 }
-
-export interface CategoryOption {
-  slug: string;
-  name: string;
-  url: string;
-}
-
-export type SortOption =
-  | "default"
-  | "price-asc"
-  | "price-desc"
-  | "rating-desc"
-  | "title-asc";

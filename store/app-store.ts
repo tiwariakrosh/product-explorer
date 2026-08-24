@@ -22,6 +22,7 @@ const themeSlice = createSlice({
     },
   },
 });
+
 export const { toggle, set: setTheme } = themeSlice.actions;
 export const store = configureStore({ reducer: { theme: themeSlice.reducer } });
 export type RootState = ReturnType<typeof store.getState>;

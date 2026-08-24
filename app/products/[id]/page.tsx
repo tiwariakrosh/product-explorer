@@ -1,9 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Star } from "lucide-react";
+import { ArrowLeft, Box, DollarSign, Star } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/services/products";
-import { FavoriteButton } from "@/components/favorite-button";
+import { formatPrice } from "@/utils/format";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Product Explorer — Product Details",
+};
 
 export default async function ProductDetail({
   params,
@@ -43,7 +48,6 @@ export default async function ProductDetail({
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                 {product.category}
               </p>
-              <FavoriteButton productId={product.id} key={product.id} />
             </div>
             <h1 className="mt-4 text-4xl font-bold tracking-[-0.04em] sm:text-6xl">
               {product.title}
@@ -51,22 +55,34 @@ export default async function ProductDetail({
             <p className="mt-6 text-base leading-8 text-muted-foreground">
               {product.description}
             </p>
-            <div className="mt-8 flex items-center gap-6 border-y border-border py-5">
-              <span className="font-mono text-2xl font-bold">
-                ${product.price.toFixed(2)}
-              </span>
-              <span className="flex items-center gap-1 font-mono text-sm text-muted-foreground">
-                <Star className="size-4 fill-primary text-primary" />{" "}
-                {product.rating.toFixed(1)}
-              </span>
-              <span className="font-mono text-xs text-muted-foreground">
-                {product.stock} available
-              </span>
-            </div>
-            <p className="mt-6 text-sm text-muted-foreground">
-              {product.brand ? `Made by ${product.brand}. ` : ""}A thoughtful
-              addition to any collection.
-            </p>
+            <dl className="grid grid-cols-3 gap-4 border-y border-border py-6">
+              <div>
+                <dt className="mb-1 flex items-center gap-1  font-mono text-[10px] text-muted-foreground uppercase">
+                  <DollarSign className="size-4" /> Price
+                </dt>
+                <dd className="font-mono text-2xl font-bold">
+                  {formatPrice(product.price)}
+                </dd>
+              </div>
+              <div>
+                <dt className="mb-1 flex items-center gap-1  font-mono text-[10px] text-muted-foreground uppercase">
+                  <Star className="fill-primary text-primary" size={16} />{" "}
+                  Rating
+                </dt>
+                <dd className="font-mono text-2xl font-bold">
+                  {product.rating.toFixed(1)}
+                  <span className="text-xs text-muted-foreground"> / 5.0</span>
+                </dd>
+              </div>
+              <div>
+                <dt className="mb-1 flex items-center gap-1  font-mono text-[10px] text-muted-foreground uppercase">
+                  <Box className="size-4" /> Stock
+                </dt>
+                <dd className="font-mono  text-2xl font-bold">
+                  {product.stock}
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </div>

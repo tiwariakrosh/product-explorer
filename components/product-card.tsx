@@ -40,11 +40,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
             priority={priority}
             className="object-contain p-6 transition-transform duration-500 ease-out group-hover:scale-105"
           />
-          {product.discountPercentage > 0 && (
-            <span className="absolute left-3 top-3 rounded-full bg-brand-500 px-2 py-0.5 font-mono text-[11px] font-medium text-white">
-              -{Math.round(product.discountPercentage)}%
-            </span>
-          )}
         </div>
 
         <div className="flex flex-1 flex-col gap-2 p-4">
@@ -54,33 +49,27 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <h3 className="line-clamp-2 font-display text-sm font-semibold leading-snug text-ink dark:text-ink-dark">
             {product.title}
           </h3>
-          <div className="mt-auto flex items-center gap-1 font-mono text-xs text-muted-foreground">
-            <Star
-              className="size-3.5 fill-primary text-primary"
-              aria-hidden="true"
-            />{" "}
-            {product.rating.toFixed(1)}{" "}
-          </div>
-          <div className="inline-flex items-center gap-2">
-            <div className="relative inline-flex items-center rounded-md bg-brand-500 py-1 pl-3.5 pr-2.5 text-white">
-              <span
+          <div className="flex items-center justify-between">
+            <div className="font-mono text-base font-bold tabular-nums">
+              {formatPrice(
+                product.discountPercentage > 0
+                  ? product.price -
+                      (product.price * product.discountPercentage) / 100
+                  : product.price,
+              )}
+            </div>
+            <div className="mt-auto flex items-center gap-1 font-mono text-xs text-muted-foreground">
+              <Star
+                className="size-3.5 fill-primary text-primary"
                 aria-hidden="true"
-                className="absolute -left-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-surface-raised dark:bg-surface-dark-raised"
-              />
-              <span className="font-mono text-sm font-semibold tabular-nums">
-                {formatPrice(
-                  product.discountPercentage > 0
-                    ? product.price -
-                        (product.price * product.discountPercentage) / 100
-                    : product.price,
-                )}
-              </span>
-            </div>{" "}
+              />{" "}
+              {product.rating.toFixed(1)}{" "}
+            </div>
           </div>
         </div>
       </Link>
 
-      <div className="absolute right-3 top-3">
+      <div className="absolute right-1 top-1">
         <button
           type="button"
           onClick={() => toggleFavorite(product.id)}

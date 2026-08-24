@@ -2,7 +2,7 @@ function ShimmerBlock({ className }: { className: string }) {
   return (
     <div
       aria-hidden="true"
-      className={`animate-shimmer rounded-md bg-[linear-gradient(90deg,theme(colors.border)_0px,theme(colors.muted)_40px,theme(colors.border)_80px)] bg-[length:450px_100%] ${className}`}
+      className={`animate-shimmer rounded-md bg-[linear-gradient(90deg,var(--color-border)_0px,var(--color-muted)_40px,var(--color-border)_80px)] bg-size-[450px_100%] ${className}`}
     />
   );
 }
